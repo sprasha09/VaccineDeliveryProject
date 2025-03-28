@@ -1,0 +1,44 @@
+#!/bin/bash
+
+JOB_TYPE=$1  # This will determine which MATLAB function to call
+
+if [[ -z "$JOB_TYPE" ]]; then
+    echo "Please specify a job type: runGCsMain or runPserWrapper"
+    exit 1
+fi
+
+while IFS= read -r line; do
+    params=($line)
+    param_string=$(IFS=,; echo "${params[*]}")
+
+    case $JOB_TYPE in
+        runGCsMain)
+            MATLAB_FUNCTION="runGCsMain"
+            JOB_NAME="runGCsMain"
+            ;;
+        runPserWrapper)
+            MATLAB_FUNCTION="runPserWrapper"
+            JOB_NAME="runPserWrapper"
+            ;;
+        *)
+            echo "Invalid job type specified: $JOB_TYPE"
+            exit 1
+            ;;
+    esac
+
+    sbatch -J $JOB_NAME << EOJ
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH --time=12:00:00
+#SBATCH --mem=8G
+#SBATCH --partition=sched_mit_arupc_long,sched_mit_arupc,sched_any,sched_mit_hill,newnodes
+#SBATCH --exclude=node158,node185
+#SBATCH -o ./slurm_output/output_%j.txt
+#SBATCH -e ./slurm_output/output_%j.txt 
+. /etc/profile.d/modules.sh
+module add mit/matlab/2022a
+matlab -nodisplay -r "$MATLAB_FUNCTION($param_string), exit"
+EOJ
+
+done
