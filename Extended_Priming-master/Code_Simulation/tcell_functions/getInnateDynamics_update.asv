@@ -170,19 +170,18 @@ d_int_adj = 0.025;
 % Antigen Equation
 if ~isempty(slow_rates) && t<slow_final(1)
     %dydt(1) = -d(1)*y(1) + slow_rates(1);
-    dydt(1) = -d(1)*d_int_ag + slow_rates(1);
+    dydt(1) = -d(1)*d_ + slow_rates(1);
 else
-    dydt(1) = -d(1)*d_int_ag;
+    dydt(1) = -d(1)*y(1);
 
 end
 
 % Adjuvant Equation
 if ~isempty(slow_rates) && t<slow_final(2)
-    %dydt(2) = -d(2)*y(2) + slow_rates(2);
-    dydt(2) = -d(2)*d_int_adj + slow_rates(2);
+    dydt(2) = -d(2)*y(2) + slow_rates(2);
     
 else
-    dydt(2) = -d(2)*d_int_adj;
+    dydt(2) = -d(2)*y(2);
 end
 
 % Sentinel cells dynamics

@@ -114,12 +114,12 @@ legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_i
 legend(legend_entries, 'Location', 'Best');
 subplot(1,6,2)
 axis_setting(gca, 'Number of Days', '# Ags')
-legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
-legend(legend_entries, 'Location', 'Best');
+%legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
+%legend(legend_entries, 'Location', 'Best');
 subplot(1,6,1)
 axis_setting(gca, 'Number of Days', '# Adjs')
-legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
-legend(legend_entries, 'Location', 'Best');
+%legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
+%legend(legend_entries, 'Location', 'Best');
 end
 
 %#########################################################
