@@ -162,27 +162,30 @@ kinetic_params = num2cell(kinetic_params);
 d = [d_Ag, d_Adj];
 
 % testing out our initial concentrations --> 04/01/2025
+% This is not how this works, these values should be set for y0 at 1 and 2
+% (antigen and adjuvant)
 d_int_ag = 0.01;
 d_int_adj = 0.025;
 
 
-% - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+% - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) This is the consumption variable 
+% that needs to be added to the antigen and adjuvant ;
 % Antigen Equation
 if ~isempty(slow_rates) && t<slow_final(1)
-    %dydt(1) = -d(1)*y(1) + slow_rates(1);
-    dydt(1) = -d(1)*d_int_ag + slow_rates(1);
+    dydt(1) = -d(1)*y(1) + slow_rates(1);
+    %dydt(1) = -d(1)*d_int_ag + slow_rates(1);
 else
-    dydt(1) = -d(1)*d_int_ag;
+    dydt(1) = -d(1)*y(1);
 
 end
 
 % Adjuvant Equation
 if ~isempty(slow_rates) && t<slow_final(2)
-    %dydt(2) = -d(2)*y(2) + slow_rates(2);
-    dydt(2) = -d(2)*d_int_adj + slow_rates(2);
+    dydt(2) = -d(2)*y(2) + slow_rates(2);
+    %dydt(2) = -d(2)*d_int_adj + slow_rates(2);
     
 else
-    dydt(2) = -d(2)*d_int_adj;
+    dydt(2) = -d(2)*y(2);
 end
 
 % Sentinel cells dynamics
