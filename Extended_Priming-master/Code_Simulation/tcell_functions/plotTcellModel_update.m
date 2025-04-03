@@ -19,7 +19,7 @@ Tfh_data = readmatrix(fullfile(fileparts(mfilename('fullpath')),...
 %     tCellModel(fit_parameter, x_optim, innate_inputs);
 
 % Plotting
-f1 = plotInnateDyn_update(x_optim, innate_inputs, scheme, 5); % Plot the innate immune cell dynamics
+f1 = plotInnateDyn_update(x_optim, innate_inputs, scheme, 1); % Plot the innate immune cell dynamics
 %f2 = plotTcellNum_update(x_optim, innate_inputs, scheme, Tfh_data, 1); % Compare the model with data
 
 % innate_inputs = [3, 3, 0.1, 1.5, 0.22, 1.2, 10];
