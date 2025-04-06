@@ -12,9 +12,13 @@ Tfh_data = readmatrix(fullfile(fileparts(mfilename('fullpath')),...
 
 % Plotting
 % fit_parameter = 0;
- innate_inputs = [3, 3, 0.1, 1.5, 0.22, 1.2, 10;
+
+% innate_inputs = [3, 3, 0.1, 1.5, 0.22, 1.2, 10];
+
+innate_inputs = [3, 3, 0.1, 1.5, 0.22, 1.2, 10;
                   0.1, 3, 0.1, 1.5, 0.22, 1.2, 10;
                   10, 3, 0.1, 1.5, 0.22, 1.2, 10];
+
 % [x_optim, chisq, params_guess, res, exitflags] =...
 %     tCellModel(fit_parameter, x_optim, innate_inputs);
 

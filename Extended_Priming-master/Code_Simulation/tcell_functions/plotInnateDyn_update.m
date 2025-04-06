@@ -78,15 +78,15 @@ for plotIndex = 1:x_dim
         xticks([0,7,14])
         box off
 
-        subplot(1,6,2) %Total Ags
-        plot(time, conc(:,1), 'LineWidth', 1, 'Color', color_ED)
+        subplot(1,6,2) %Total Adjs
+        plot(time, conc(:,2), 'LineWidth', 1, 'Color', color_ED)
         hold on
         xlim([0,14])
         xticks([0,7,14])
         box off
 
         subplot(1,6,1) %Total Ags
-        plot(time, conc(:,2), 'LineWidth', 1, 'Color', color_ED)
+        plot(time, conc(:,1), 'LineWidth', 1, 'Color', color_ED)
         hold on
         xlim([0,14])
         xticks([0,7,14])
@@ -113,11 +113,11 @@ axis_setting(gca, 'Number of Days', '# DCs')
 legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
 legend(legend_entries, 'Location', 'Best');
 subplot(1,6,2)
-axis_setting(gca, 'Number of Days', '# Ags')
+axis_setting(gca, 'Number of Days', '# Adjs')
 legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
 legend(legend_entries, 'Location', 'Best');
 subplot(1,6,1)
-axis_setting(gca, 'Number of Days', '# Adjs')
+axis_setting(gca, 'Number of Days', '# Ags')
 legend_entries = [scheme.names(flip(scheme_idx)), scheme.names_low(flip(scheme_idx)),scheme.names_high(flip(scheme_idx))];
 legend(legend_entries, 'Location', 'Best');
 end
