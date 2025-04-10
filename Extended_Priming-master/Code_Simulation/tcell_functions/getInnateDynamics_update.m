@@ -173,7 +173,7 @@ d = [d_Ag, d_Adj];
 % Antigen Equation
 if ~isempty(slow_rates) && t<slow_final(1)
     %dydt(1) = -d(1)*y(1) + slow_rates(1);
-    dydt(1) = -d(1)*y(1) + slow_rates(1) - (1+ ((k1*y(2))/(y(2)+K_Adj)))*y(1)*y(4);
+    dydt(1) = -d(1)*y(1) + slow_rates(1) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
 else
     %dydt(1) = -d(1)*y(1);
     dydt(1) = -d(1)*y(1) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
@@ -193,7 +193,7 @@ end
 dydt(3) = y(2)/(K_Adj+y(2)) - mu*y(3);
 
 % DC dynamics
-dydt(4) = C0*y(3) - (mu + (1+k1*y(2)/(y(2)+K_Adj))*y(1))*y(4); % DCs
+dydt(4) = C0*y(3) - (mu + (1+k1*y(2)/(y(2)+K_Adj)))*y(1)*y(4); % DCs
 dydt(5) = 0; % DC-Adj
 dydt(6) = (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) - mu*y(6); % DC-ag
 % Look at this part on 04/10/2025
