@@ -164,8 +164,8 @@ d = [d_Ag, d_Adj];
 % testing out our initial concentrations --> 04/01/2025
 % This is not how this works, these values should be set for y0 at 1 and 2
 % (antigen and adjuvant)
-d_int_ag = 0.01;
-d_int_adj = 0.025;
+% d_int_ag = 0.01;
+% d_int_adj = 0.025;
 
 
 % - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) This is the consumption variable 
@@ -173,20 +173,20 @@ d_int_adj = 0.025;
 % Antigen Equation
 if ~isempty(slow_rates) && t<slow_final(1)
     %dydt(1) = -d(1)*y(1) + slow_rates(1);
-    dydt(1) = -d(1)*y(1) + slow_rates(1) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(1) = -d(1)*y(1) + slow_rates(1) + (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
 else
     %dydt(1) = -d(1)*y(1);
-    dydt(1) = -d(1)*y(1)- (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(1) = -d(1)*y(1) + (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
 
 end
 
 % Adjuvant Equation
 if ~isempty(slow_rates) && t<slow_final(2)
-    %dydt(2) = -d(2)*y(2) + slow_rates(2);
-    dydt(2) = -d(2)*y(2) + slow_rates(2) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(2) = -d(2)*y(2) + slow_rates(2);
+    %dydt(2) = -d(2)*y(2) + slow_rates(2) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
 else
-    %dydt(2) = -d(2)*y(2);
-    dydt(2) = -d(2)*y(2)- (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(2) = -d(2)*y(2);
+    %dydt(2) = -d(2)*y(2)- (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
 end
 
 % Sentinel cells dynamics
@@ -196,6 +196,8 @@ dydt(3) = y(2)/(K_Adj+y(2)) - mu*y(3);
 dydt(4) = C0*y(3) - (mu + (1+k1*y(2)/(y(2)+K_Adj))*y(1))*y(4); % DCs
 dydt(5) = 0; % DC-Adj
 dydt(6) = (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) - mu*y(6); % DC-ag
+% Look at this part on 04/10/2025
+%dydt(6) = - mu*y(6);
 
 % T cell dynamics
 if y(7)>=T0
