@@ -167,35 +167,41 @@ d = [d_Ag, d_Adj];
 % d_int_ag = 0.01;
 % d_int_adj = 0.025;
 
+% Original adjuvant regulatory term
+% Adj_reg_term = (1+ ((k1*y(2))/(y(2)+K_Adj)));
+
+% Proposed new adjuvant regulatory term
+Adj_reg_term = (((k1*y(2))/(y(2)+K_Adj)));
+
 
 % - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) This is the consumption variable 
 % that needs to be added to the antigen and adjuvant ;
 % Antigen Equation
 if ~isempty(slow_rates) && t<slow_final(1)
     %dydt(1) = -d(1)*y(1) + slow_rates(1);
-    dydt(1) = -d(1)*y(1) + slow_rates(1) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(1) = -d(1)*y(1) + slow_rates(1) - Adj_reg_term*y(1)*y(4);
 else
     %dydt(1) = -d(1)*y(1);
-    dydt(1) = -d(1)*y(1) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    dydt(1) = -d(1)*y(1) - Adj_reg_term*y(1)*y(4);
 
 end
 
 % Adjuvant Equation
 if ~isempty(slow_rates) && t<slow_final(2)
     dydt(2) = -d(2)*y(2) + slow_rates(2);
-    %dydt(2) = -d(2)*y(2) + slow_rates(2) - (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    %dydt(2) = -d(2)*y(2) + slow_rates(2) - Adj_reg_term*y(1)*y(4);
 else
     dydt(2) = -d(2)*y(2);
-    %dydt(2) = -d(2)*y(2)- (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4);
+    %dydt(2) = -d(2)*y(2)- Adj_reg_term*y(1)*y(4);
 end
 
 % Sentinel cells dynamics
 dydt(3) = y(2)/(K_Adj+y(2)) - mu*y(3);
 
 % DC dynamics
-dydt(4) = C0*y(3) - (mu + (1+k1*y(2)/(y(2)+K_Adj)))*y(1)*y(4); % DCs
+dydt(4) = C0*y(3) - (mu + Adj_reg_term*y(1))*y(4); % DCs
 dydt(5) = 0; % DC-Adj
-dydt(6) = (1+k1*y(2)/(y(2)+K_Adj))*y(1)*y(4) - mu*y(6); % DC-ag
+dydt(6) = Adj_reg_term*y(1)*y(4) - mu*y(6); % DC-ag
 % Look at this part on 04/10/2025
 %dydt(6) = - mu*y(6);
 
